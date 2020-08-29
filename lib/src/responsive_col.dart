@@ -119,16 +119,20 @@ class ResponsiveCol extends ResponsiveWidget {
         }
       }
 
+      final width = getColumnSize(gridSizes, mediaQuery.size.width) *
+          constraints.maxWidth;
+
       return Container(
         alignment: alignment ?? Alignment.topLeft,
         decoration: decoration,
-        width: getColumnSize(gridSizes, mediaQuery.size.width) *
-            constraints.maxWidth,
+        width: width,
         height: getWidgetHeight(constraints.maxHeight),
         padding: padding,
         margin: localMargin ?? margin,
         color: backgroundColor,
-        child: children != null ? Wrap(children: children) : null,
+        child: width > 0
+            ? children != null ? Wrap(children: children) : null
+            : SizedBox(),
       );
     });
   }
